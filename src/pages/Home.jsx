@@ -42,37 +42,37 @@ const FEATURES = [
   {
     icon: '◎',
     title: 'Voice Command Intelligence',
-    desc: 'Wake-word activated PCM audio streaming from ESP32 wristband to cloud. Google Speech Recognition transcribes, Gemini 2.0 Flash understands intent across 6 task domains.',
+    desc: 'Push-to-talk audio streaming from ESP32 device to cloud. 16kHz PCM captured via INMP441 I2S mic, transcribed with Google Speech Recognition, intent classified by Gemini 2.5 Flash across 6 task domains.',
     tag: 'Core'
   },
   {
     icon: '◈',
-    title: 'Agentic Task Execution',
-    desc: 'LangChain-powered multi-step reasoning chains handle finance tracking, schedule management, live web research via SerpAPI, and natural conversation with persistent memory.',
+    title: 'Autonomous AI Agents',
+    desc: 'LangGraph stateful agent graph with think → tool_call → execute → reflect loops. Multi-step web research via SerpAPI, self-correction, tool-call caps, and API key rotation on rate limits.',
     tag: 'AI'
   },
   {
     icon: '◉',
-    title: 'Object Detection Vision',
-    desc: 'Dedicated YOLOv3 microservice identifies 80 COCO-class objects from camera input. Optional Gemini narration layer describes scenes for visually impaired users.',
+    title: 'Object Detection & Scene Narration',
+    desc: 'Dedicated YOLOv3 microservice (Synchora-IDMB) detects 80 COCO-class objects from images. Gemini narration layer converts raw detections into natural spoken scene descriptions for accessibility.',
     tag: 'Vision'
   },
   {
     icon: '▣',
-    title: 'Cloud-Offloaded Architecture',
-    desc: 'All heavy inference runs server-side. The ESP32 wristband is purely a thin client — streaming audio in, receiving synthesized speech out via ElevenLabs TTS.',
-    tag: 'Infrastructure'
+    title: 'Finance & Schedule Automation',
+    desc: 'Voice-log transactions and query spending patterns. Add calendar events and check upcoming schedules — all persisted in MongoDB and retrieved via natural language, no UI required.',
+    tag: 'Productivity'
   },
   {
     icon: '◐',
-    title: 'Persistent Agentic Memory',
-    desc: 'Redis caching + MongoDB storage keep context across sessions. The assistant remembers user preferences, past tasks, and adapts responses over time.',
+    title: 'Persistent Memory & Context',
+    desc: 'Redis-backed session caching + MongoDB conversation history keep the assistant context-aware across sessions. It remembers what you said, what you asked, and adapts over time.',
     tag: 'Memory'
   },
   {
     icon: '◫',
-    title: 'Accessibility First Design',
-    desc: 'Built for people with special needs and visual impairments. Empathetic, patient AI persona with IST timezone awareness and positive-forward responses.',
+    title: 'Accessibility-First Design',
+    desc: 'Built for people with special needs and visual impairments. Hands-free, screen-free interaction. Cloud-offloaded compute keeps the device thin, low-power, and always responsive.',
     tag: 'Accessibility'
   }
 ]
@@ -86,14 +86,36 @@ const TECH_STACK = [
   { label: 'Express 5', category: 'Backend' },
   { label: 'LangChain JS', category: 'AI' },
   { label: 'LangGraph', category: 'AI' },
-  { label: 'Gemini 2.0 Flash', category: 'AI' },
+  { label: 'Gemini 2.5 Flash', category: 'AI' },
   { label: 'Python STT', category: 'AI' },
   { label: 'ElevenLabs TTS', category: 'AI' },
   { label: 'YOLOv3', category: 'Vision' },
   { label: 'OpenCV DNN', category: 'Vision' },
   { label: 'MongoDB', category: 'Data' },
   { label: 'Redis', category: 'Data' },
+  { label: 'SerpAPI', category: 'Search' },
   { label: 'Telegram Bot', category: 'Notify' },
+]
+
+const REPOS = [
+  {
+    name: 'Synchora-MS',
+    badge: 'Main Server',
+    desc: 'Node.js backend — WebSocket pipeline, LangChain agents, LangGraph research, MongoDB, Redis, TTS',
+    url: 'https://github.com/SonuuChowdhury/Synchora-MS'
+  },
+  {
+    name: 'Synchora-IDMB',
+    badge: 'Vision Service',
+    desc: 'Image detection microservice — YOLOv3 + OpenCV DNN, Gemini scene narration, REST API',
+    url: 'https://github.com/SonuuChowdhury/Synchora-IDMB'
+  },
+  {
+    name: 'Synchora-Device',
+    badge: 'ESP32 Firmware',
+    desc: 'PlatformIO C++ firmware — INMP441 I2S capture, PTT button, WebSocket audio streaming',
+    url: 'https://github.com/SonuuChowdhury/Synchora-Device-PlatformIO'
+  },
 ]
 
 function useIntersect(threshold = 0.15) {
@@ -147,6 +169,8 @@ export default function Home({ navigate }) {
 
         <div className={`hero-content ${heroReady ? 'ready' : ''}`}>
           <div className="hero-badge">
+            <span className="badge-dot" />
+            AI Agent · Wearable · Accessibility
           </div>
 
           <h1 className="hero-title">
@@ -155,19 +179,21 @@ export default function Home({ navigate }) {
           </h1>
 
           <p className="hero-sub">
-            Synchora is a cloud-powered AI assistant wristband designed for accessibility —
+            Synchora is a cloud-powered AI automation agent designed to connect with a wearable device —
             voice-activated, context-aware, and built to help those who need it most.
           </p>
 
           <div className="hero-cta">
             <button
               className="cta-primary"
+              style={{ padding: '14px 32px', fontSize: '13px', letterSpacing: '0.1em' }}
               onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Explore Features
             </button>
             <button
               className="cta-secondary"
+              style={{ padding: '14px 28px', fontSize: '13px', letterSpacing: '0.1em' }}
               onClick={() => navigate('documentation')}
             >
               Documentation →
@@ -209,7 +235,7 @@ export default function Home({ navigate }) {
           <div className="section-label">Capabilities</div>
           <h2 className="section-title">What Synchora Does</h2>
           <p className="section-sub">
-            Six intelligent task domains running on a cloud-native agentic pipeline.
+            Six intelligent task domains running on a cloud-native agentic pipeline, designed around voice-first accessibility.
           </p>
         </AnimSection>
 
@@ -242,11 +268,11 @@ export default function Home({ navigate }) {
 
         <AnimSection className="arch-flow">
           {[
-            { step: '01', label: 'Device', sub: 'ESP32 Wristband', detail: 'Button press triggers PCM audio capture via INMP441 I2S mic. WebSocket streams raw audio to cloud.' },
-            { step: '02', label: 'STT', sub: 'Speech Recognition', detail: 'Python process receives PCM buffer, runs Google Speech Recognition, returns transcribed text.' },
-            { step: '03', label: 'Intent', sub: 'Gemini Detection', detail: 'Lightweight Gemini model classifies intent into one of 6 task categories in milliseconds.' },
-            { step: '04', label: 'Agent', sub: 'LangChain Pipeline', detail: 'Task-specific chain executes — querying MongoDB, calling SerpAPI, or running LangGraph research agent.' },
-            { step: '05', label: 'TTS', sub: 'ElevenLabs Voice', detail: 'Response text converted to natural speech. Raw PCM audio streamed back to device over WebSocket.' },
+            { step: '01', label: 'Device', sub: 'ESP32 + INMP441', detail: 'PTT button triggers PCM audio capture at 16kHz via I2S mic. Binary frames stream over WebSocket to the cloud server with device token auth.' },
+            { step: '02', label: 'STT', sub: 'Speech Recognition', detail: 'Node.js spawns a Python child process. PCM buffer piped via stdin. Google Speech Recognition returns transcribed text as JSON.' },
+            { step: '03', label: 'Intent', sub: 'Gemini Detection', detail: 'Lightweight Gemini model classifies intent into one of 6 task categories — chat, finance, schedule, or research — in milliseconds.' },
+            { step: '04', label: 'Agent', sub: 'LangChain / LangGraph', detail: 'Task-specific chain fires — querying MongoDB, calling SerpAPI, or running the full stateful LangGraph autonomous research agent.' },
+            { step: '05', label: 'TTS', sub: 'ElevenLabs Voice', detail: 'Response text synthesized to natural speech via ElevenLabs. Raw PCM audio streamed back to device over WebSocket. TTS_END signals completion.' },
           ].map((s, i) => (
             <div key={i} className="arch-step">
               <div className="arch-step-num">{s.step}</div>
@@ -272,13 +298,9 @@ export default function Home({ navigate }) {
           </div>
         </AnimSection>
 
-        {/* Repo links */}
+        {/* Repo cards */}
         <AnimSection className="repos-wrap" delay={300}>
-          {[
-            { name: 'Synchora-MS', desc: 'Main backend server — Node.js, LangChain, WebSocket, MongoDB, Redis', url: 'https://github.com/SonuuChowdhury/Synchora-MS' },
-            { name: 'Synchora-IDMB', desc: 'Image detection microservice — YOLOv3, OpenCV, Gemini narration', url: 'https://github.com/SonuuChowdhury/Synchora-IDMB' },
-            { name: 'Synchora-Device', desc: 'ESP32 PlatformIO firmware — I2S audio, WebSocket client', url: 'https://github.com/SonuuChowdhury/Synchora-Device-PlatformIO' },
-          ].map((r, i) => (
+          {REPOS.map((r, i) => (
             <a key={i} href={r.url} target="_blank" rel="noopener noreferrer" className="repo-card">
               <div className="repo-card-inner">
                 <div className="repo-icon">
@@ -287,6 +309,7 @@ export default function Home({ navigate }) {
                   </svg>
                 </div>
                 <div className="repo-info">
+                  <div className="repo-badge-inline">{r.badge}</div>
                   <div className="repo-name">{r.name}</div>
                   <div className="repo-desc">{r.desc}</div>
                 </div>
@@ -294,6 +317,23 @@ export default function Home({ navigate }) {
               </div>
             </a>
           ))}
+        </AnimSection>
+
+        {/* Build logbook callout */}
+        <AnimSection delay={400}>
+          <a
+            href="https://docs.google.com/document/d/18II7gRaO29cJ0GnAKNLhQsrgbbmvOMZdw-WH79EImz4/edit?usp=drive_link"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="logbook-callout"
+          >
+            <div className="logbook-icon">📓</div>
+            <div className="logbook-body">
+              <div className="logbook-title">Build Logbook</div>
+              <div className="logbook-desc">Full development journal — every debug session, architecture decision, hardware issue, and breakthrough documented in real time.</div>
+            </div>
+            <div className="logbook-arrow">↗</div>
+          </a>
         </AnimSection>
       </section>
 
@@ -342,6 +382,14 @@ export default function Home({ navigate }) {
           <div className="footer-links">
             <a href="https://github.com/SonuuChowdhury/Synchora-MS" target="_blank" rel="noopener noreferrer">Main Repo</a>
             <a href="https://github.com/SonuuChowdhury/Synchora-IDMB" target="_blank" rel="noopener noreferrer">Vision Repo</a>
+            <a href="https://github.com/SonuuChowdhury/Synchora-Device-PlatformIO" target="_blank" rel="noopener noreferrer">Device Repo</a>
+            <a
+              href="https://docs.google.com/document/d/18II7gRaO29cJ0GnAKNLhQsrgbbmvOMZdw-WH79EImz4/edit?usp=drive_link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Logbook
+            </a>
             <a href="mailto:chowdhurysonu047@gmail.com">Contact</a>
             <button onClick={() => navigate('documentation')}>Docs</button>
           </div>
