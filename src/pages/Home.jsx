@@ -151,7 +151,7 @@ export default function Home({ navigate }) {
 
           <h1 className="hero-title">
             <span className="hero-title-line">The Intelligence</span>
-            <span className="hero-title-line hero-title-accent">On Your Wrist.</span>
+            <span className="hero-title-line hero-title-accent">On Your Device.</span>
           </h1>
 
           <p className="hero-sub">
