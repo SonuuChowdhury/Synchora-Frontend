@@ -60,7 +60,6 @@ dist-ssr
 *.sw?
 
 
-context.py
 
 
 
@@ -2493,6 +2492,70 @@ FILE: src\pages\Documentation.css
   padding-top: 70px;
 }
 
+/* ── MOBILE NAV (hidden on desktop) ── */
+.docs-mobile-nav {
+  display: none;
+  position: sticky;
+  top: 70px;
+  z-index: 100;
+  background: rgba(0,0,0,0.96);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.docs-mobile-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--chrome-bright);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.docs-mobile-chevron {
+  font-size: 12px;
+  color: var(--chrome-dim);
+}
+
+.docs-mobile-dropdown {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border);
+}
+
+.docs-mobile-item {
+  text-align: left;
+  padding: 12px 16px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.docs-mobile-item:last-child {
+  border-bottom: none;
+}
+
+.docs-mobile-item:hover,
+.docs-mobile-item.active {
+  color: var(--chrome-bright);
+  background: rgba(255,255,255,0.04);
+}
+
 /* ── SIDEBAR ── */
 .docs-sidebar {
   width: 240px;
@@ -2561,6 +2624,9 @@ FILE: src\pages\Documentation.css
   padding: 24px;
   border-top: 1px solid var(--border);
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .docs-repo-link {
@@ -2573,6 +2639,7 @@ FILE: src\pages\Documentation.css
   color: var(--text-dim);
   text-decoration: none;
   transition: color 0.2s;
+  padding: 4px 0;
 }
 
 .docs-repo-link:hover {
@@ -2584,7 +2651,7 @@ FILE: src\pages\Documentation.css
   flex: 1;
   min-width: 0;
   max-width: 860px;
-  padding: clamp(30px, 5vw, 48px) clamp(20px, 5vw, 60px) 80px;
+  padding: clamp(28px, 5vw, 48px) clamp(16px, 5vw, 60px) 80px;
 }
 
 .docs-breadcrumb {
@@ -2595,7 +2662,8 @@ FILE: src\pages\Documentation.css
   font-size: 11px;
   letter-spacing: 0.1em;
   color: var(--text-dim);
-  margin-bottom: 40px;
+  margin-bottom: clamp(24px, 4vw, 40px);
+  flex-wrap: wrap;
 }
 
 .docs-breadcrumb button {
@@ -2625,13 +2693,13 @@ FILE: src\pages\Documentation.css
 
 .docs-title {
   font-family: var(--font-display);
-  font-size: clamp(28px, 4vw, 48px);
+  font-size: clamp(24px, 4vw, 48px);
   font-weight: 300;
   color: var(--chrome-bright);
-  margin-bottom: 40px;
+  margin-bottom: clamp(24px, 4vw, 40px);
   line-height: 1.2;
   letter-spacing: -0.01em;
-  padding-bottom: 32px;
+  padding-bottom: clamp(20px, 3vw, 32px);
   border-bottom: 1px solid var(--border);
 }
 
@@ -2640,7 +2708,7 @@ FILE: src\pages\Documentation.css
 }
 
 .docs-body p {
-  font-size: clamp(14px, 1.4vw, 15px);
+  font-size: clamp(13px, 1.4vw, 15px);
   line-height: 1.85;
   font-weight: 300;
   margin-bottom: 24px;
@@ -2649,32 +2717,32 @@ FILE: src\pages\Documentation.css
 
 .docs-body h4 {
   font-family: var(--font-ui);
-  font-size: clamp(11px, 1.2vw, 12px);
+  font-size: clamp(10px, 1.1vw, 12px);
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--chrome-dim);
-  margin: 40px 0 16px;
+  margin: clamp(28px, 4vw, 40px) 0 14px;
   line-height: 1.4;
 }
 
 .doc-callout {
   display: flex;
-  gap: clamp(12px, 2vw, 16px);
+  gap: clamp(10px, 2vw, 16px);
   align-items: flex-start;
   border: 1px solid var(--border);
   border-left: 3px solid var(--chrome-dim);
-  padding: clamp(16px, 2vw, 20px) clamp(16px, 2vw, 24px);
+  padding: clamp(14px, 2vw, 20px) clamp(14px, 2vw, 24px);
   border-radius: 0 4px 4px 0;
   background: rgba(255,255,255,0.02);
-  margin: 28px 0;
-  font-size: clamp(13px, 1.3vw, 15px);
+  margin: clamp(20px, 3vw, 28px) 0;
+  font-size: clamp(12px, 1.3vw, 15px);
   line-height: 1.75;
 }
 
 .callout-icon {
   color: var(--chrome-dim);
-  font-size: clamp(14px, 1.6vw, 16px);
+  font-size: clamp(13px, 1.5vw, 16px);
   flex-shrink: 0;
   margin-top: 2px;
   line-height: 1.2;
@@ -2689,21 +2757,21 @@ FILE: src\pages\Documentation.css
   color: var(--chrome);
   font-style: italic;
   font-family: var(--font-display);
-  font-size: 17px;
+  font-size: clamp(14px, 1.6vw, 17px);
 }
 
 /* Repo list */
 .doc-repo-list {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: clamp(20px, 3vw, 32px);
   margin-top: 24px;
 }
 
 .doc-repo {
   border: 1px solid var(--border);
   border-radius: 4px;
-  padding: 32px;
+  padding: clamp(20px, 3vw, 32px);
   background: var(--surface);
   transition: border-color 0.3s;
 }
@@ -2713,7 +2781,7 @@ FILE: src\pages\Documentation.css
 }
 
 .doc-repo-header {
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .doc-repo-badge {
@@ -2731,7 +2799,7 @@ FILE: src\pages\Documentation.css
 
 .doc-repo-name {
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: clamp(18px, 2.2vw, 22px);
   font-weight: 400;
   color: var(--chrome-bright);
   margin-bottom: 4px;
@@ -2749,10 +2817,11 @@ FILE: src\pages\Documentation.css
 
 .doc-repo-stack {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: clamp(10px, 1.1vw, 11px);
   color: var(--text-dim);
   letter-spacing: 0.06em;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
+  line-height: 1.6;
 }
 
 /* Pipeline */
@@ -2768,8 +2837,8 @@ FILE: src\pages\Documentation.css
 
 .doc-pipeline-step {
   display: flex;
-  gap: 24px;
-  padding: 28px 28px;
+  gap: clamp(14px, 2vw, 24px);
+  padding: clamp(18px, 2.5vw, 28px);
   border-bottom: 1px solid var(--border);
   transition: background 0.2s;
 }
@@ -2794,15 +2863,15 @@ FILE: src\pages\Documentation.css
 
 .doc-step-title {
   font-family: var(--font-ui);
-  font-size: 14px;
+  font-size: clamp(12px, 1.3vw, 14px);
   font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--chrome-bright);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .doc-step-detail {
-  font-size: 14px;
+  font-size: clamp(12px, 1.3vw, 14px);
   color: var(--text-secondary);
   line-height: 1.7;
   font-weight: 300;
@@ -2812,14 +2881,14 @@ FILE: src\pages\Documentation.css
 .doc-intents {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: clamp(12px, 2vw, 20px);
   margin-top: 24px;
 }
 
 .doc-intent-card {
   border: 1px solid var(--border);
   border-radius: 4px;
-  padding: 28px;
+  padding: clamp(18px, 2.5vw, 28px);
   background: var(--surface);
   transition: all 0.3s;
 }
@@ -2833,7 +2902,7 @@ FILE: src\pages\Documentation.css
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .doc-intent-icon {
@@ -2843,17 +2912,17 @@ FILE: src\pages\Documentation.css
 
 .doc-intent-name {
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: clamp(18px, 2vw, 20px);
   font-weight: 400;
   color: var(--chrome-bright);
 }
 
 .doc-intent-desc {
-  font-size: 13px;
+  font-size: clamp(12px, 1.2vw, 13px);
   color: var(--text-secondary);
   line-height: 1.7;
   font-weight: 300;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .doc-examples-label {
@@ -2862,18 +2931,21 @@ FILE: src\pages\Documentation.css
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--text-dim);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .doc-examples {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
+  padding: 0;
+  margin: 0;
 }
 
 .doc-examples li {
   font-size: 12px;
+  margin: 0;
 }
 
 .example-quote {
@@ -2881,9 +2953,10 @@ FILE: src\pages\Documentation.css
   color: var(--chrome-dim);
   background: rgba(255,255,255,0.04);
   border: 1px solid var(--border);
-  padding: 4px 10px;
+  padding: 3px 9px;
   border-radius: 2px;
   display: inline-block;
+  font-size: 11px;
 }
 
 /* Feature list */
@@ -2891,17 +2964,19 @@ FILE: src\pages\Documentation.css
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin: 12px 0;
+  gap: 6px;
+  margin: 12px 0 0;
+  padding: 0;
 }
 
 .doc-feature-list li {
-  font-size: 14px;
+  font-size: clamp(12px, 1.3vw, 14px);
   color: var(--text-secondary);
   font-weight: 300;
   padding-left: 16px;
   position: relative;
   line-height: 1.6;
+  margin: 0;
 }
 
 .doc-feature-list li::before {
@@ -2931,8 +3006,8 @@ FILE: src\pages\Documentation.css
 }
 
 .doc-table-row span:first-child {
-  flex: 0 0 180px;
-  padding: 12px 20px;
+  flex: 0 0 clamp(120px, 20vw, 180px);
+  padding: 11px 16px;
   background: rgba(255,255,255,0.02);
   color: var(--text-dim);
   font-family: var(--font-mono);
@@ -2942,13 +3017,13 @@ FILE: src\pages\Documentation.css
 }
 
 .doc-table-row span:last-child {
-  padding: 12px 20px;
+  padding: 11px 16px;
   color: var(--chrome-bright);
   font-family: var(--font-mono);
   font-size: 12px;
 }
 
-/* Code blocks */
+/* Code */
 .doc-code {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -2961,23 +3036,24 @@ FILE: src\pages\Documentation.css
 
 .doc-code-block {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: clamp(11px, 1.1vw, 12px);
   line-height: 1.8;
   color: var(--chrome-dim);
   background: rgba(255,255,255,0.03);
   border: 1px solid var(--border);
   border-radius: 4px;
-  padding: 24px;
+  padding: clamp(16px, 2.5vw, 24px);
   overflow-x: auto;
   margin: 16px 0;
   white-space: pre;
   letter-spacing: 0.03em;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Nav footer */
 .docs-nav-footer {
-  margin-top: 60px;
-  padding-top: 32px;
+  margin-top: clamp(40px, 6vw, 60px);
+  padding-top: clamp(20px, 3vw, 32px);
   border-top: 1px solid var(--border);
 }
 
@@ -2985,17 +3061,18 @@ FILE: src\pages\Documentation.css
   display: flex;
   justify-content: space-between;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .doc-nav-btn {
   font-family: var(--font-ui);
-  font-size: 13px;
+  font-size: clamp(11px, 1.2vw, 13px);
   font-weight: 500;
   letter-spacing: 0.08em;
   color: var(--chrome-dim);
   background: none;
   border: 1px solid var(--border);
-  padding: 12px 24px;
+  padding: 11px clamp(14px, 2vw, 24px);
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.2s;
@@ -3011,19 +3088,86 @@ FILE: src\pages\Documentation.css
   margin-left: auto;
 }
 
-/* Responsive */
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+
 @media (max-width: 900px) {
   .docs-sidebar {
     display: none;
   }
-  .docs-content {
-    padding: 32px 24px 60px;
+
+  .docs-mobile-nav {
+    display: block;
   }
+
+  .docs-layout {
+    padding-top: 70px;
+  }
+
+  .docs-content {
+    padding: clamp(20px, 4vw, 36px) clamp(16px, 4vw, 32px) 60px;
+    max-width: 100%;
+  }
+
   .doc-intents {
     grid-template-columns: 1fr;
   }
 }
 
+@media (max-width: 600px) {
+  .docs-content {
+    padding: 16px 12px 48px;
+  }
+
+  .doc-callout {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .doc-pipeline-step {
+    gap: 10px;
+  }
+
+  .doc-step-num {
+    width: 20px;
+    font-size: 10px;
+  }
+
+  .doc-table-row span:first-child {
+    flex: 0 0 110px;
+    padding: 10px 10px;
+    font-size: 10px;
+  }
+
+  .doc-table-row span:last-child {
+    padding: 10px 10px;
+    font-size: 11px;
+  }
+
+  .doc-code-block {
+    font-size: 10px;
+    padding: 14px 12px;
+  }
+
+  .docs-prev-next {
+    flex-direction: column;
+  }
+
+  .doc-nav-next {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .docs-title {
+    font-size: 22px;
+  }
+
+  .doc-repo {
+    padding: 16px 14px;
+  }
+}
 
 
 
@@ -3042,13 +3186,27 @@ const SECTIONS = [
     title: 'What is Synchora?',
     content: (
       <>
-        <p>Synchora is a cloud-powered AI assistant wristband designed for accessibility — built as a Final Year Project by 5 B.Tech EEE students at Academy of Technology, Hooghly, Kolkata (Batch 2023–2027).</p>
-        <p>The system architecture offloads all heavy computation to the cloud. The ESP32-based wristband acts as a thin client — capturing voice input and receiving audio output — while the server handles speech recognition, intent detection, task execution, and speech synthesis.</p>
-        <p>Synchora is built specifically with accessibility in mind, designed for people with special needs and visually impaired users who benefit from a hands-free, voice-first assistant.</p>
+        <p>Synchora is a cloud-powered AI automation agent designed to connect with a wearable device — built as a Final Year Project by 5 B.Tech EEE students at Academy of Technology, Hooghly, Kolkata (Batch 2023–2027).</p>
+        <p>The system architecture offloads all heavy computation to the cloud. The ESP32-based device acts as a thin client — capturing voice input and receiving audio output — while the server handles speech recognition, intent detection, task execution, and speech synthesis.</p>
+        <p>Synchora is built specifically with accessibility in mind, designed for people with special needs and visually impaired users who benefit from a hands-free, voice-first assistant. The wearable hardware form factor is still being finalized.</p>
         <div className="doc-callout">
           <span className="callout-icon">◎</span>
           <div>
             <strong>Core Philosophy:</strong> Intelligence lives in the cloud. The device stays simple, low-power, and reliable.
+          </div>
+        </div>
+        <div className="doc-callout">
+          <span className="callout-icon">📓</span>
+          <div>
+            <strong>Build Logbook:</strong> The full development process — every debug session, architecture decision, hardware issue, and breakthrough — is documented in the{' '}
+            <a
+              href="https://docs.google.com/document/d/18II7gRaO29cJ0GnAKNLhQsrgbbmvOMZdw-WH79EImz4/edit?usp=drive_link"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: 'var(--chrome-dim)', textDecoration: 'underline' }}
+            >
+              Project Progress + Log Book ↗
+            </a>
           </div>
         </div>
       </>
@@ -3067,25 +3225,53 @@ const SECTIONS = [
               name: 'Synchora-MS',
               url: 'https://github.com/SonuuChowdhury/Synchora-MS',
               badge: 'Main Server',
-              stack: 'Node.js · Express 5 · WebSocket · LangChain · MongoDB · Redis',
-              desc: 'The central backend. Manages WebSocket connections from devices, orchestrates the AI pipeline, handles all task chains, stores user data, and runs the Telegram bot integration.',
-              features: ['WebSocket server for ESP32 connections', 'Python STT process spawning', 'Intent detection via Gemini', 'LangChain task chains (6 domains)', 'MongoDB persistence', 'Redis session caching', 'Telegram notification bot', 'ElevenLabs TTS integration']
+              stack: 'Node.js · Express 5 · WebSocket · LangChain · LangGraph · MongoDB · Redis',
+              desc: 'The central backend. Manages WebSocket connections from devices, orchestrates the full AI pipeline, handles all task chains, stores user data, and runs the Telegram bot integration.',
+              features: [
+                'WebSocket server for ESP32 device connections',
+                'Python STT process spawning (stdin/stdout IPC)',
+                'Intent detection via Gemini 2.5 Flash',
+                'LangChain task chains across 6 domains',
+                'LangGraph autonomous research agent with self-reflection',
+                'MongoDB persistence (chat, finance, schedule)',
+                'Redis session caching for context memory',
+                'Telegram notification bot integration',
+                'ElevenLabs TTS — PCM streamed back to device'
+              ]
             },
             {
               name: 'Synchora-IDMB',
               url: 'https://github.com/SonuuChowdhury/Synchora-IDMB',
               badge: 'Vision Service',
-              stack: 'Node.js · Python · YOLOv3 · OpenCV DNN · Gemini',
-              desc: 'Dedicated image detection microservice. Accepts image uploads via Express API, spawns a Python process running YOLOv3 with OpenCV DNN, and optionally adds a Gemini narration layer for scene description.',
-              features: ['YOLOv3 object detection (80 COCO classes)', 'OpenCV DNN inference engine', 'Express REST API with multer uploads', 'Gemini scene narration layer', 'JSON detection response with confidence scores']
+              stack: 'Node.js · Express · Python · YOLOv3 · OpenCV DNN · Gemini',
+              desc: 'Dedicated image detection microservice. Accepts image uploads via REST API, spawns a Python process running YOLOv3 with OpenCV DNN, and adds a Gemini narration layer for natural scene descriptions built for accessibility.',
+              features: [
+                'YOLOv3 object detection across 80 COCO classes',
+                'OpenCV DNN inference engine (CPU-compatible)',
+                'Express REST API with multer in-memory uploads',
+                'Node.js ↔ Python IPC via stdin/stdout',
+                'Gemini scene narration layer for accessibility',
+                'Confidence scores + bounding boxes in JSON response',
+                '30s process timeout with graceful termination',
+                'Server health logging per request'
+              ]
             },
             {
               name: 'Synchora-Device',
               url: 'https://github.com/SonuuChowdhury/Synchora-Device-PlatformIO',
               badge: 'ESP32 Firmware',
-              stack: 'C++ · PlatformIO · Arduino · WebSocket',
-              desc: 'PlatformIO firmware for the ESP32 wristband. Handles INMP441 I2S microphone audio capture, button-triggered recording, WebSocket communication with the server, and PCM audio playback.',
-              features: ['INMP441 I2S microphone interface', 'Button-triggered START/END events', 'PCM audio streaming over WebSocket', 'Device token authentication', 'SSL WebSocket support', 'Audio playback from server TTS']
+              stack: 'C++ · PlatformIO · Arduino · WebSocket · I2S',
+              desc: 'PlatformIO firmware for the ESP32 device. Handles INMP441 I2S microphone audio capture at 16kHz, push-to-talk button logic, WebSocket communication with the server, and device token authentication.',
+              features: [
+                'INMP441 I2S microphone interface at 16kHz 16-bit PCM',
+                'Push-to-talk button with START/END events',
+                'Binary PCM audio streaming over WebSocket',
+                'Device token authentication (DEVICE_ID validation)',
+                'Plain WebSocket (ws://) and SSL (wss://) support',
+                'Configurable WiFi + server endpoint via env',
+                'Max 30s / min 0.3s recording guard rails',
+                'TTS audio playback from server PCM stream'
+              ]
             }
           ].map((r, i) => (
             <div key={i} className="doc-repo">
@@ -3117,14 +3303,14 @@ const SECTIONS = [
         <p>Every voice command follows this exact sequence from button press to audio response:</p>
         <div className="doc-pipeline">
           {[
-            { step: 1, title: 'Button Press → START Event', detail: 'User presses the physical button on the ESP32 wristband. Firmware sends a JSON WebSocket message: { "event": "START" }. A 30-second timeout timer begins.' },
-            { step: 2, title: 'PCM Audio Streaming', detail: 'INMP441 I2S microphone captures audio at 16kHz, 16-bit PCM. Raw binary frames are streamed continuously over the WebSocket connection to the Node.js server.' },
-            { step: 3, title: 'Button Release → END Event', detail: 'User releases the button. Firmware sends { "event": "END" }. Server stops buffering and validates minimum audio length (≥0.3 seconds / 9,600 bytes).' },
-            { step: 4, title: 'STT via Python', detail: 'Node.js spawns a Python child process (stt.py). The PCM buffer is piped to stdin. Python uses the SpeechRecognition library with Google Speech API. Result returned as JSON: { success, text }.' },
-            { step: 5, title: 'Token Validation', detail: 'Server validates socket.userId against DEVICE_ID env var. Unauthorized devices are rejected. This ensures only registered Synchora devices can trigger the AI pipeline.' },
-            { step: 6, title: 'Intent Detection', detail: 'Transcribed text is passed to a lightweight Gemini detection model (geminiDetectionModel.config.js). It classifies the intent into one of: chat, finance_add, finance_query, schedule_add, schedule_query, or research.' },
-            { step: 7, title: 'Task Chain Execution', detail: 'The appropriate LangChain task chain is invoked. Each chain has its own prompt template, tools, and data access patterns. The research domain uses a full LangGraph autonomous agent.' },
-            { step: 8, title: 'Response → TTS', detail: 'The final text response is passed to ElevenLabs TTS via Python (TTS.py). Synthesized PCM audio is streamed back to the ESP32 over WebSocket as binary frames. A TTS_END event signals completion.' },
+            { step: 1, title: 'Button Press → START Event', detail: 'User presses the physical PTT button on the ESP32 device. Firmware sends { "event": "START" } over WebSocket. A 30-second timeout timer begins server-side.' },
+            { step: 2, title: 'PCM Audio Streaming', detail: 'INMP441 I2S microphone captures audio at 16kHz, 16-bit PCM (32 KB/s). Raw binary frames are streamed continuously over the WebSocket connection to the Node.js server.' },
+            { step: 3, title: 'Button Release → END Event', detail: 'User releases the button. Firmware sends { "event": "END" }. Server stops buffering and validates minimum audio length (≥0.3 seconds / ~9,600 bytes).' },
+            { step: 4, title: 'STT via Python', detail: 'Node.js spawns a Python child process (stt.py) using child_process.spawn(). The PCM buffer is piped to stdin. Python uses the SpeechRecognition library with Google Speech API. Result returned as JSON: { success, text }.' },
+            { step: 5, title: 'Token Validation', detail: 'Server validates socket.userId against the DEVICE_ID environment variable. Unauthorized devices are rejected here. This ensures only registered Synchora devices trigger the AI pipeline.' },
+            { step: 6, title: 'Intent Detection', detail: 'Transcribed text is passed to a lightweight Gemini 2.5 Flash detection model. It classifies intent into one of 6 domains: chat, finance_add, finance_query, schedule_add, schedule_query, or research.' },
+            { step: 7, title: 'Task Chain Execution', detail: 'The appropriate LangChain task chain fires. Each chain has its own prompt template, tools, and data access patterns. The research domain uses a full LangGraph stateful agent graph with think → call → execute → reflect loops.' },
+            { step: 8, title: 'Response → TTS → Device', detail: 'Final response text is passed to ElevenLabs TTS via Python (TTS.py). Synthesized PCM audio is streamed back to the ESP32 over WebSocket as binary frames. { "event": "TTS_END" } signals completion.' },
           ].map((s, i) => (
             <div key={i} className="doc-pipeline-step">
               <div className="doc-step-num">{String(s.step).padStart(2, '0')}</div>
@@ -3149,10 +3335,10 @@ const SECTIONS = [
           {[
             { name: 'Chat', icon: '◎', desc: 'General conversation and Q&A. Uses the main Gemini model with full conversation history from MongoDB. Supports follow-up questions and contextual memory across sessions.', examples: ['"What\'s the capital of France?"', '"Tell me a joke"', '"Explain quantum computing simply"'] },
             { name: 'Finance Add', icon: '◈', desc: 'Records financial transactions. Parses amount, category, and date from natural speech. Persists to MongoDB finance collection linked to user account.', examples: ['"Add 500 rupees for groceries"', '"I spent 200 on auto rickshaw"', '"Log 1500 for electricity bill"'] },
-            { name: 'Finance Query', icon: '◉', desc: 'Queries and summarizes financial data. Aggregates by date range, category, or total. Returns natural language summaries.', examples: ['"How much did I spend this week?"', '"What are my biggest expenses?"', '"Show me food expenses this month"'] },
-            { name: 'Schedule Add', icon: '▣', desc: 'Creates calendar events and reminders. Parses time (UTC → IST conversion), title, and recurrence from natural language. Stores in MongoDB schedule collection.', examples: ['"Remind me about the meeting at 3 PM"', '"Add doctor appointment tomorrow at 10"', '"Schedule team standup every Monday at 9 AM"'] },
-            { name: 'Schedule Query', icon: '◐', desc: 'Retrieves upcoming events and reminders. Supports time-range queries and natural responses.', examples: ['"What do I have today?"', '"Any events this weekend?"', '"When is my next appointment?"'] },
-            { name: 'Research', icon: '◫', desc: 'Autonomous LangGraph research agent. Uses SerpAPI for web search, processes results through a think→call→execute→reflect graph loop. Returns comprehensive summaries.', examples: ['"Research the latest developments in fusion energy"', '"Find me information about Python asyncio best practices"', '"What are the top electric vehicles in 2025?"'] },
+            { name: 'Finance Query', icon: '◉', desc: 'Queries and summarizes financial data. Aggregates by date range, category, or total. Returns natural language summaries via Gemini.', examples: ['"How much did I spend this week?"', '"What are my biggest expenses?"', '"Show me food expenses this month"'] },
+            { name: 'Schedule Add', icon: '▣', desc: 'Creates calendar events and reminders. Parses time (UTC → IST conversion), title, and recurrence from natural language. Stores in MongoDB schedule collection.', examples: ['"Remind me about the meeting at 3 PM"', '"Add doctor appointment tomorrow at 10"', '"Schedule team standup every Monday 9 AM"'] },
+            { name: 'Schedule Query', icon: '◐', desc: 'Retrieves upcoming events and reminders. Supports time-range queries and natural responses based on stored schedule data.', examples: ['"What do I have today?"', '"Any events this weekend?"', '"When is my next appointment?"'] },
+            { name: 'Research', icon: '◫', desc: 'Full LangGraph autonomous research agent. Multi-step web search via SerpAPI, think → call → execute → reflect graph loop, tool-call cap (6/question), Tavily + DuckDuckGo fallback, API key rotation on rate limits.', examples: ['"Research the latest in fusion energy"', '"Find Python asyncio best practices"', '"What are the top EVs in 2025?"'] },
           ].map((intent, i) => (
             <div key={i} className="doc-intent-card">
               <div className="doc-intent-header">
@@ -3176,14 +3362,13 @@ const SECTIONS = [
     title: 'Vision & Object Detection',
     content: (
       <>
-        <p>The Synchora-IDMB service provides real-time object detection using YOLOv3 trained on the COCO dataset.</p>
+        <p>The Synchora-IDMB service provides real-time object detection using YOLOv3 trained on the COCO dataset — accessible via a standalone REST API.</p>
         <div className="doc-callout">
           <span className="callout-icon">◉</span>
-          <div><strong>80 Object Classes</strong> — from people and vehicles to household items and electronics. Designed to help visually impaired users understand their environment.</div>
+          <div><strong>80 Object Classes</strong> — from people and vehicles to household items and electronics. Designed to help visually impaired users understand their environment through natural spoken descriptions.</div>
         </div>
         <h4>How It Works</h4>
-        <p>The Express API receives an image upload via <code className="doc-code">/upload</code>. Multer stores it in memory. Node.js spawns a Python process, pipes the image buffer to stdin, and waits for detection JSON on stdout.</p>
-        <p>The Python process loads YOLOv3 weights + config via OpenCV's DNN module, decodes the image from buffer, runs inference, applies NMS (non-maximum suppression), and returns structured detection results.</p>
+        <p>The Express API receives an image upload via <code className="doc-code">POST /upload</code>. Multer stores it in memory (no disk I/O). Node.js spawns a Python child process, pipes the image buffer to stdin, and reads detection JSON from stdout. The Python process loads YOLOv3 weights + config via OpenCV DNN, decodes the image, runs forward inference, applies Non-Maximum Suppression, and returns structured results.</p>
         <h4>Response Format</h4>
         <div className="doc-code-block">
 {`{
@@ -3191,23 +3376,26 @@ const SECTIONS = [
   "count": 3,
   "detections": [
     {
-      "label": "person",
+      "class": "person",
       "confidence": 0.94,
-      "bbox": [x, y, width, height]
+      "bbox": { "x": 120, "y": 60, "width": 180, "height": 300 }
     },
     {
-      "label": "laptop",
+      "class": "laptop",
       "confidence": 0.87,
-      "bbox": [x, y, width, height]
+      "bbox": { "x": 340, "y": 200, "width": 200, "height": 140 }
     }
-  ]
+  ],
+  "detect_time_ms": 1240,
+  "gemini_time_ms": 820,
+  "speech": "It looks like an office setting. A person is seated in the centre..."
 }`}
         </div>
         <h4>Gemini Narration Layer</h4>
-        <p>Optionally, detection results are passed to Gemini to generate a natural language scene description. This converts raw detection data into an accessibility-friendly voice response like:</p>
+        <p>Detection JSON is passed to Gemini 2.5 Flash with a structured prompt that instructs it to identify the environment type, describe object positions using spatial language (left, middle, right based on bbox x values), and add contextual safety or social cues. Output is a short spoken-style description optimised for TTS delivery.</p>
         <div className="doc-callout">
           <span className="callout-icon">◐</span>
-          <div><em>"I can see a person in the foreground, a laptop on a desk to the right, and a coffee cup nearby."</em></div>
+          <div><em>"It looks like an office. A person is seated in the centre, with a laptop on the desk to the right. There's a coffee cup nearby. It seems like a focused work session."</em></div>
         </div>
       </>
     )
@@ -3215,10 +3403,10 @@ const SECTIONS = [
   {
     id: 'device',
     label: 'ESP32 Device',
-    title: 'ESP32 Wristband Hardware',
+    title: 'ESP32 Device Hardware',
     content: (
       <>
-        <p>The physical Synchora device is built around the ESP32 microcontroller running firmware developed in PlatformIO.</p>
+        <p>The Synchora device is built around the ESP32 microcontroller running firmware developed in PlatformIO. The wearable form factor is still being finalized — hardware integration is in progress.</p>
         <h4>Audio Configuration</h4>
         <div className="doc-table">
           <div className="doc-table-row"><span>Microphone</span><span>INMP441 (I2S digital)</span></div>
@@ -3229,7 +3417,6 @@ const SECTIONS = [
           <div className="doc-table-row"><span>Data Rate</span><span>32 KB/s (16000 × 2 bytes)</span></div>
         </div>
         <h4>WebSocket Protocol</h4>
-        <p>The device communicates with the server using a simple event-driven protocol:</p>
         <div className="doc-code-block">
 {`// Device → Server: Authentication
 { "event": "TOKEN", "user_id": "<DEVICE_ID>" }
@@ -3238,12 +3425,12 @@ const SECTIONS = [
 { "event": "START" }
 
 // Device → Server: Binary PCM frames (continuous)
-<binary audio data>
+<binary audio data at 32 KB/s>
 
 // Device → Server: Stop recording
 { "event": "END" }
 
-// Server → Device: TTS audio
+// Server → Device: TTS audio PCM
 <binary PCM audio frames>
 
 // Server → Device: TTS complete
@@ -3251,10 +3438,11 @@ const SECTIONS = [
         </div>
         <h4>Known Challenges Solved</h4>
         <ul className="doc-feature-list">
-          <li>INMP441 zero-audio bug fixed via GPIO reassignment and VDD voltage verification</li>
-          <li>WebSocket SSL/plain-WS mismatch resolved (ngrok tunneling, beginSSL vs begin)</li>
-          <li>I2S bit-shift configuration tuned for correct 16-bit PCM output</li>
-          <li>PCM analysis via ffmpeg used to validate audio data integrity</li>
+          <li>INMP441 all-zero PCM bug — investigated VDD undervoltage (~150mV vs 3.3V required), GPIO reassignment (34→32), I2S bit-shift tuning</li>
+          <li>WebSocket SSL/plain-WS mismatch with ngrok — resolved by switching from beginSSL() to plain ws:// on port 80</li>
+          <li>WiFi/WebSocket race condition on boot — fixed with proper connection sequencing</li>
+          <li>PCM integrity validation using ffmpeg to verify data before STT pipeline</li>
+          <li>Deprecated I2S constants replaced with current PlatformIO equivalents</li>
         </ul>
       </>
     )
@@ -3265,15 +3453,17 @@ const SECTIONS = [
     title: 'Running Synchora Locally',
     content: (
       <>
+        <p>There is no hosted backend — run everything locally and set your own environment variables.</p>
         <h4>Prerequisites</h4>
         <ul className="doc-feature-list">
           <li>Node.js ≥ 20</li>
           <li>Python 3.10+</li>
           <li>MongoDB Atlas account</li>
           <li>Redis Cloud account</li>
-          <li>Gemini API keys (2 separate keys for intent + main)</li>
+          <li>2× Gemini API keys (intent detection + main model)</li>
           <li>ElevenLabs API key</li>
           <li>SerpAPI key (for research agent)</li>
+          <li>Telegram bot token + chat ID (optional, for notifications)</li>
         </ul>
         <h4>Environment Variables</h4>
         <div className="doc-code-block">
@@ -3288,22 +3478,42 @@ TELEGRAM_BOT_TOKEN=your_telegram_token
 TELEGRAM_CHAT_ID=your_chat_id
 REDIS_URL=redis://...`}
         </div>
-        <h4>Installation</h4>
+        <h4>Main Server (Synchora-MS)</h4>
         <div className="doc-code-block">
-{`# Clone and install
-git clone https://github.com/SonuuChowdhury/Synchora-MS
+{`git clone https://github.com/SonuuChowdhury/Synchora-MS
 cd Synchora-MS
 npm install
-
-# Install Python dependencies
 pip install -r requirements.txt
-
-# Start server
-node index.js`}
+node index.js
+# Server starts on http://localhost:5000`}
+        </div>
+        <h4>Vision Server (Synchora-IDMB)</h4>
+        <div className="doc-code-block">
+{`git clone https://github.com/SonuuChowdhury/Synchora-IDMB
+cd Synchora-IDMB
+npm install
+pip install -r requirements.txt
+# Download yolov3.weights from pjreddie.com (248MB)
+node index.js
+# Server starts on http://localhost:3000`}
         </div>
         <div className="doc-callout">
           <span className="callout-icon">▣</span>
-          <div>The server runs on port 5000 by default. The ESP32 device connects via WebSocket to this server. Use ngrok or deploy to a cloud provider for remote device access.</div>
+          <div>The main server runs on port 5000. The ESP32 device connects via WebSocket to this server. Use ngrok or Cloudflared to expose the server for remote device access. Use plain <code className="doc-code">ws://</code> (not wss://) when tunnelling through ngrok.</div>
+        </div>
+        <div className="doc-callout">
+          <span className="callout-icon">📓</span>
+          <div>
+            For detailed notes on every debugging session and setup decision made during development, refer to the{' '}
+            <a
+              href="https://docs.google.com/document/d/18II7gRaO29cJ0GnAKNLhQsrgbbmvOMZdw-WH79EImz4/edit?usp=drive_link"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: 'var(--chrome-dim)', textDecoration: 'underline' }}
+            >
+              Project Logbook ↗
+            </a>
+          </div>
         </div>
       </>
     )
@@ -3312,12 +3522,44 @@ node index.js`}
 
 export default function Documentation({ navigate }) {
   const [active, setActive] = useState('overview')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const activeSection = SECTIONS.find(s => s.id === active)
+  const activeIdx = SECTIONS.findIndex(s => s.id === active)
+
+  const goTo = (id) => {
+    setActive(id)
+    setMobileMenuOpen(false)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   return (
     <div className="docs-page">
       <Navbar navigate={navigate} currentPage="documentation" />
+
+      {/* Mobile section picker */}
+      <div className="docs-mobile-nav">
+        <button
+          className="docs-mobile-trigger"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          <span>{activeSection?.label}</span>
+          <span className="docs-mobile-chevron">{mobileMenuOpen ? '↑' : '↓'}</span>
+        </button>
+        {mobileMenuOpen && (
+          <div className="docs-mobile-dropdown">
+            {SECTIONS.map(s => (
+              <button
+                key={s.id}
+                className={`docs-mobile-item ${active === s.id ? 'active' : ''}`}
+                onClick={() => goTo(s.id)}
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
 
       <div className="docs-layout">
         {/* Sidebar */}
@@ -3329,7 +3571,7 @@ export default function Documentation({ navigate }) {
                 <button
                   key={s.id}
                   className={`docs-nav-item ${active === s.id ? 'active' : ''}`}
-                  onClick={() => setActive(s.id)}
+                  onClick={() => goTo(s.id)}
                 >
                   {s.label}
                 </button>
@@ -3337,8 +3579,19 @@ export default function Documentation({ navigate }) {
             </nav>
             <div className="docs-sidebar-footer">
               <a href="https://github.com/SonuuChowdhury/Synchora-MS" target="_blank" rel="noopener noreferrer" className="docs-repo-link">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
                 View on GitHub
+              </a>
+              <a
+                href="https://docs.google.com/document/d/18II7gRaO29cJ0GnAKNLhQsrgbbmvOMZdw-WH79EImz4/edit?usp=drive_link"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="docs-repo-link"
+                style={{ marginTop: '10px' }}
+              >
+                📓 Build Logbook
               </a>
             </div>
           </div>
@@ -3360,25 +3613,21 @@ export default function Documentation({ navigate }) {
             </div>
           </div>
           <div className="docs-nav-footer">
-            {SECTIONS.map((s, i) => {
-              const idx = SECTIONS.findIndex(x => x.id === active)
-              return null
-            })}
             <div className="docs-prev-next">
-              {SECTIONS.findIndex(s => s.id === active) > 0 && (
+              {activeIdx > 0 && (
                 <button
                   className="doc-nav-btn"
-                  onClick={() => setActive(SECTIONS[SECTIONS.findIndex(s => s.id === active) - 1].id)}
+                  onClick={() => goTo(SECTIONS[activeIdx - 1].id)}
                 >
-                  ← {SECTIONS[SECTIONS.findIndex(s => s.id === active) - 1].label}
+                  ← {SECTIONS[activeIdx - 1].label}
                 </button>
               )}
-              {SECTIONS.findIndex(s => s.id === active) < SECTIONS.length - 1 && (
+              {activeIdx < SECTIONS.length - 1 && (
                 <button
                   className="doc-nav-btn doc-nav-next"
-                  onClick={() => setActive(SECTIONS[SECTIONS.findIndex(s => s.id === active) + 1].id)}
+                  onClick={() => goTo(SECTIONS[activeIdx + 1].id)}
                 >
-                  {SECTIONS[SECTIONS.findIndex(s => s.id === active) + 1].label} →
+                  {SECTIONS[activeIdx + 1].label} →
                 </button>
               )}
             </div>
@@ -3388,7 +3637,6 @@ export default function Documentation({ navigate }) {
     </div>
   )
 }
-
 
 
 
@@ -3440,7 +3688,6 @@ FILE: src\pages\Home.css
   letter-spacing: -0.01em;
   line-height: 1.15;
   color: var(--chrome-bright);
-  margin-bottom: 20px;
   margin: 0 auto 20px;
 }
 
@@ -3462,7 +3709,7 @@ FILE: src\pages\Home.css
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: 0 40px;
+  padding: clamp(80px, 12vw, 120px) clamp(16px, 5vw, 40px) clamp(60px, 8vw, 80px);
 }
 
 .hero-grid-lines {
@@ -3512,6 +3759,7 @@ FILE: src\pages\Home.css
   position: relative;
   z-index: 2;
   max-width: 800px;
+  width: 100%;
   text-align: center;
   opacity: 0;
   transform: translateY(40px);
@@ -3528,14 +3776,14 @@ FILE: src\pages\Home.css
   align-items: center;
   gap: 8px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: clamp(10px, 1.2vw, 11px);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--chrome-dim);
   border: 1px solid var(--border);
   padding: 8px 16px;
   border-radius: 2px;
-  margin-bottom: 48px;
+  margin-bottom: clamp(28px, 5vw, 48px);
   background: rgba(255,255,255,0.02);
 }
 
@@ -3544,6 +3792,7 @@ FILE: src\pages\Home.css
   height: 6px;
   border-radius: 50%;
   background: var(--chrome);
+  flex-shrink: 0;
   animation: pulse 2s ease-in-out infinite;
 }
 
@@ -3554,11 +3803,11 @@ FILE: src\pages\Home.css
 
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(52px, 9vw, 100px);
+  font-size: clamp(44px, 8vw, 100px);
   font-weight: 300;
   line-height: 1.0;
   letter-spacing: -0.02em;
-  margin-bottom: 32px;
+  margin-bottom: clamp(20px, 3vw, 32px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3579,26 +3828,29 @@ FILE: src\pages\Home.css
 }
 
 .hero-sub {
-  font-size: clamp(15px, 2vw, 18px);
+  font-size: clamp(14px, 1.8vw, 18px);
   color: var(--text-secondary);
-  max-width: 560px;
-  margin: 0 auto 48px;
+  max-width: 580px;
+  margin: 0 auto clamp(28px, 4vw, 48px);
   line-height: 1.8;
   font-weight: 300;
 }
 
 .hero-cta {
   display: flex;
-  gap: 16px;
+  gap: clamp(8px, 2vw, 16px);
   justify-content: center;
-  margin-bottom: 72px;
+  margin-bottom: clamp(40px, 6vw, 72px);
   flex-wrap: wrap;
 }
 
 .cta-primary {
   font-family: var(--font-ui);
   font-weight: 600;
+  font-size: clamp(11px, 1.2vw, 13px);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
+  padding: clamp(10px, 2vw, 14px) clamp(20px, 3vw, 32px);
   background: var(--chrome);
   color: var(--black);
   border: none;
@@ -3616,7 +3868,10 @@ FILE: src\pages\Home.css
 .cta-secondary {
   font-family: var(--font-ui);
   font-weight: 500;
+  font-size: clamp(11px, 1.2vw, 13px);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
+  padding: clamp(10px, 2vw, 14px) clamp(18px, 3vw, 28px);
   background: transparent;
   color: var(--chrome-dim);
   border: 1px solid var(--border-bright);
@@ -3633,41 +3888,39 @@ FILE: src\pages\Home.css
 
 .hero-stats {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  gap: 0;
   border: 1px solid var(--border);
   border-radius: 4px;
   overflow: hidden;
   background: rgba(255,255,255,0.02);
   backdrop-filter: blur(10px);
-  max-width: 500px;
+  max-width: 520px;
   margin: 0 auto;
-  flex-wrap: wrap;
 }
 
 .stat {
   flex: 1;
-  min-width: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: clamp(16px, 3vw, 20px) clamp(12px, 2vw, 16px);
+  justify-content: center;
+  padding: clamp(14px, 2.5vw, 20px) clamp(8px, 1.5vw, 16px);
 }
 
 .stat-num {
   font-family: var(--font-display);
-  font-size: clamp(24px, 4vw, 32px);
+  font-size: clamp(22px, 3.5vw, 32px);
   font-weight: 600;
   color: var(--chrome-bright);
   line-height: 1;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .stat-label {
   font-family: var(--font-mono);
-  font-size: clamp(9px, 1.1vw, 10px);
-  letter-spacing: 0.12em;
+  font-size: clamp(8px, 1vw, 10px);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-dim);
   line-height: 1.3;
@@ -3676,9 +3929,9 @@ FILE: src\pages\Home.css
 
 .stat-div {
   width: 1px;
-  height: 40px;
   background: var(--border);
   flex-shrink: 0;
+  align-self: stretch;
 }
 
 .hero-scroll-hint {
@@ -3720,15 +3973,21 @@ FILE: src\pages\Home.css
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1px;
   background: var(--border);
   border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.feature-card-wrap {
+  background: var(--surface);
 }
 
 .feature-card {
   position: relative;
-  padding: clamp(24px, 5vw, 40px) clamp(20px, 4vw, 36px);
+  padding: clamp(24px, 4vw, 40px) clamp(20px, 3vw, 36px);
   height: 100%;
   overflow: hidden;
   background: var(--surface);
@@ -3743,130 +4002,88 @@ FILE: src\pages\Home.css
   opacity: 1;
 }
 
+.feature-shine {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(200,200,200,0.04), transparent 60%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+.feature-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
 .feature-icon {
-  font-size: clamp(20px, 2.5vw, 24px);
+  font-size: clamp(18px, 2.2vw, 24px);
   color: var(--chrome);
   line-height: 1;
 }
 
+.feature-tag {
+  font-family: var(--font-mono);
+  font-size: clamp(8px, 0.9vw, 9px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  padding: 3px 8px;
+  border-radius: 1px;
+  background: rgba(255,255,255,0.02);
+  white-space: nowrap;
+}
+
 .feature-title {
   font-family: var(--font-display);
-  font-size: clamp(18px, 2.2vw, 22px);
+  font-size: clamp(17px, 1.8vw, 22px);
   font-weight: 400;
   color: var(--chrome-bright);
-  margin: 12px 0;
-  line-height: 1.3;
+  margin-bottom: 10px;
+  line-height: 1.25;
   letter-spacing: -0.01em;
 }
 
 .feature-desc {
-  font-size: clamp(13px, 1.3vw, 14px);
+  font-size: clamp(12px, 1.2vw, 14px);
   color: var(--text-secondary);
   line-height: 1.8;
   font-weight: 300;
   letter-spacing: 0.2px;
 }
 
-/* ── RESPONSIVE DESIGN ── */
-@media (max-width: 1024px) {
-  .features-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  }
-}
-
-@media (max-width: 768px) {
-  .section {
-    padding: clamp(50px, 8vw, 80px) clamp(16px, 4vw, 24px);
-  }
-
-  .hero {
-    min-height: auto;
-    padding: 80px 16px 60px;
-  }
-
-  .hero-scroll-hint {
-    display: none;
-  }
-
-  .features-grid {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  .stat-div {
-    display: none;
-  }
-
-  .hero-stats {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 480px) {
-  .section {
-    padding: clamp(40px, 6vw, 60px) clamp(12px, 3vw, 16px);
-  }
-
-  .section-header-wrap {
-    margin-bottom: clamp(30px, 6vw, 40px);
-  }
-
-  .hero {
-    padding: 70px 12px 50px;
-  }
-
-  .hero-badge {
-    margin-bottom: clamp(20px, 4vw, 32px);
-  }
-
-  .hero-title {
-    margin-bottom: clamp(16px, 3vw, 24px);
-  }
-
-  .hero-sub {
-    margin-bottom: clamp(24px, 4vw, 36px);
-    font-size: 14px;
-  }
-
-  .hero-cta {
-    gap: 8px;
-    margin-bottom: clamp(30px, 5vw, 50px);
-  }
-
-  .cta-primary,
-  .cta-secondary {
-    font-size: 12px;
-    padding: 10px 20px;
-  }
-
-  .stat {
-    min-width: 100px;
-    padding: 12px 8px;
-  }
-
-  .stat-num {
-    font-size: 24px;
-  }
-}
+/* ── ARCHITECTURE ── */
+.arch-section {
   border-top: 1px solid var(--border);
 }
 
 .arch-flow {
   display: flex;
   gap: 0;
-  margin-bottom: 80px;
+  margin-bottom: clamp(48px, 8vw, 80px);
   position: relative;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .arch-step {
   flex: 1;
   position: relative;
-  padding: 0 clamp(16px, 3vw, 24px);
+  padding: clamp(20px, 3vw, 28px) clamp(16px, 2.5vw, 24px);
   border-left: 1px solid var(--border);
+  background: var(--surface);
+  transition: background 0.3s;
+}
+
+.arch-step:hover {
+  background: var(--surface2);
 }
 
 .arch-step:first-child {
-  padding-left: 0;
   border-left: none;
 }
 
@@ -3881,13 +4098,14 @@ FILE: src\pages\Home.css
 
 .arch-step-connector {
   position: absolute;
-  top: 6px;
+  top: 28px;
   right: -1px;
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: var(--border-bright);
   transform: translateX(50%);
+  z-index: 1;
 }
 
 .arch-step:last-child .arch-step-connector {
@@ -3896,7 +4114,7 @@ FILE: src\pages\Home.css
 
 .arch-step-label {
   font-family: var(--font-ui);
-  font-size: clamp(10px, 1.1vw, 11px);
+  font-size: clamp(9px, 1vw, 11px);
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -3907,23 +4125,24 @@ FILE: src\pages\Home.css
 
 .arch-step-sub {
   font-family: var(--font-display);
-  font-size: clamp(16px, 2vw, 18px);
+  font-size: clamp(15px, 1.7vw, 18px);
   color: var(--chrome-bright);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   font-weight: 300;
   line-height: 1.2;
 }
 
 .arch-step-detail {
-  font-size: clamp(12px, 1.4vw, 13px);
+  font-size: clamp(11px, 1.2vw, 13px);
   color: var(--text-secondary);
   line-height: 1.8;
   font-weight: 300;
   letter-spacing: 0.2px;
 }
 
+/* Tech stack */
 .tech-stack-wrap {
-  margin-bottom: 60px;
+  margin-bottom: clamp(40px, 6vw, 60px);
 }
 
 .tech-stack-label {
@@ -3944,15 +4163,16 @@ FILE: src\pages\Home.css
 
 .tech-pill {
   font-family: var(--font-mono);
-  font-size: clamp(10px, 1.2vw, 11px);
+  font-size: clamp(10px, 1.1vw, 11px);
   letter-spacing: 0.08em;
-  padding: 8px clamp(10px, 2vw, 14px);
+  padding: 7px clamp(10px, 1.5vw, 14px);
   border-radius: 2px;
   border: 1px solid var(--border);
   line-height: 1.4;
   color: var(--chrome-dim);
   background: rgba(255,255,255,0.02);
   transition: all 0.2s;
+  cursor: default;
 }
 
 .tech-pill:hover {
@@ -3961,21 +4181,19 @@ FILE: src\pages\Home.css
   background: rgba(255,255,255,0.05);
 }
 
-.tech-pill[data-cat="AI"] { border-color: rgba(180,180,180,0.2); color: #aaa; }
-.tech-pill[data-cat="Vision"] { border-color: rgba(150,150,150,0.2); }
-.tech-pill[data-cat="Device"] { border-color: rgba(120,120,120,0.2); }
-
+/* Repo cards */
 .repos-wrap {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(10px, 1.5vw, 16px);
+  margin-bottom: clamp(24px, 4vw, 40px);
 }
 
 .repo-card {
   display: block;
   border: 1px solid var(--border);
   border-radius: 4px;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
   text-decoration: none;
   overflow: hidden;
 }
@@ -3984,22 +4202,21 @@ FILE: src\pages\Home.css
   border-color: var(--chrome-dim);
   transform: translateY(-4px);
   box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-  transition: all 0.3s ease;
 }
 
 .repo-card-inner {
   display: flex;
   align-items: flex-start;
-  gap: clamp(12px, 2vw, 16px);
-  padding: clamp(20px, 3vw, 24px);
+  gap: clamp(10px, 1.5vw, 16px);
+  padding: clamp(16px, 2.5vw, 24px);
   background: var(--surface);
+  height: 100%;
 }
 
 .repo-icon {
   color: var(--chrome-dim);
   flex-shrink: 0;
-  margin-top: 2px;
-  font-size: clamp(18px, 2vw, 24px);
+  margin-top: 4px;
 }
 
 .repo-info {
@@ -4007,22 +4224,34 @@ FILE: src\pages\Home.css
   min-width: 0;
 }
 
+.repo-badge-inline {
+  font-family: var(--font-mono);
+  font-size: clamp(8px, 0.9vw, 9px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  padding: 2px 7px;
+  border-radius: 1px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
 .repo-name {
   font-family: var(--font-ui);
-  font-size: clamp(13px, 1.4vw, 14px);
+  font-size: clamp(13px, 1.3vw, 14px);
   font-weight: 600;
   letter-spacing: 0.05em;
   color: var(--chrome-bright);
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   line-height: 1.3;
 }
 
 .repo-desc {
-  font-size: clamp(11px, 1.2vw, 12px);
+  font-size: clamp(11px, 1.1vw, 12px);
   color: var(--text-secondary);
   line-height: 1.7;
   font-weight: 300;
-  letter-spacing: 0.2px;
 }
 
 .repo-arrow {
@@ -4030,9 +4259,67 @@ FILE: src\pages\Home.css
   font-size: 16px;
   flex-shrink: 0;
   transition: color 0.3s;
+  margin-top: 2px;
 }
 
 .repo-card:hover .repo-arrow {
+  color: var(--chrome-bright);
+}
+
+/* Logbook callout */
+.logbook-callout {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2vw, 20px);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: clamp(18px, 3vw, 28px) clamp(20px, 3vw, 32px);
+  background: var(--surface);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.logbook-callout:hover {
+  border-color: var(--chrome-dim);
+  background: var(--surface2);
+  transform: translateY(-2px);
+}
+
+.logbook-icon {
+  font-size: clamp(20px, 2.5vw, 28px);
+  flex-shrink: 0;
+  filter: grayscale(0.3);
+}
+
+.logbook-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.logbook-title {
+  font-family: var(--font-ui);
+  font-size: clamp(13px, 1.4vw, 15px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--chrome-bright);
+  margin-bottom: 4px;
+}
+
+.logbook-desc {
+  font-size: clamp(12px, 1.2vw, 13px);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.logbook-arrow {
+  color: var(--text-dim);
+  font-size: 18px;
+  flex-shrink: 0;
+  transition: color 0.3s;
+}
+
+.logbook-callout:hover .logbook-arrow {
   color: var(--chrome-bright);
 }
 
@@ -4043,19 +4330,19 @@ FILE: src\pages\Home.css
 
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: clamp(12px, 2vw, 16px);
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(10px, 1.5vw, 16px);
 }
 
 .team-card-wrap.lead {
-  grid-column: span 1;
+  grid-column: span 4;
 }
 
 .team-card {
   position: relative;
   border: 1px solid var(--border);
   border-radius: 4px;
-  padding: clamp(20px, 3vw, 32px) clamp(16px, 2vw, 24px);
+  padding: clamp(18px, 2.5vw, 32px) clamp(14px, 2vw, 24px);
   background: var(--surface);
   overflow: hidden;
   transition: all 0.3s ease;
@@ -4083,11 +4370,16 @@ FILE: src\pages\Home.css
 .team-card-lead {
   border-color: rgba(200,200,200,0.2);
   background: linear-gradient(135deg, var(--surface2) 0%, var(--surface) 100%);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto auto 1fr auto;
+  column-gap: 24px;
 }
 
 .lead-badge {
+  grid-column: 1 / -1;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: clamp(8px, 0.9vw, 9px);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--chrome-dim);
@@ -4095,35 +4387,40 @@ FILE: src\pages\Home.css
   padding: 4px 10px;
   border-radius: 1px;
   display: inline-block;
-  margin-bottom: 20px;
+  margin-bottom: clamp(12px, 2vw, 20px);
+  width: fit-content;
 }
 
 .team-avatar {
-  width: clamp(44px, 8vw, 52px);
-  height: clamp(44px, 8vw, 52px);
+  width: clamp(40px, 6vw, 52px);
+  height: clamp(40px, 6vw, 52px);
   border-radius: 50%;
   border: 1px solid var(--border-bright);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
-  font-size: clamp(16px, 2vw, 18px);
+  font-size: clamp(14px, 1.8vw, 18px);
   font-weight: 600;
   color: var(--chrome);
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   background: rgba(255,255,255,0.03);
+  flex-shrink: 0;
 }
 
 .team-card-lead .team-avatar {
-  width: clamp(48px, 10vw, 64px);
-  height: clamp(48px, 10vw, 64px);
-  font-size: clamp(18px, 2.5vw, 22px);
+  width: clamp(44px, 7vw, 64px);
+  height: clamp(44px, 7vw, 64px);
+  font-size: clamp(16px, 2.2vw, 22px);
   border-color: rgba(200,200,200,0.3);
+  grid-row: 2 / 5;
+  margin-bottom: 0;
+  align-self: center;
 }
 
 .team-name {
   font-family: var(--font-display);
-  font-size: clamp(18px, 2.2vw, 20px);
+  font-size: clamp(17px, 2vw, 20px);
   font-weight: 400;
   color: var(--chrome-bright);
   margin-bottom: 4px;
@@ -4131,36 +4428,46 @@ FILE: src\pages\Home.css
 }
 
 .team-card-lead .team-name {
-  font-size: clamp(20px, 2.8vw, 26px);
+  font-size: clamp(20px, 2.5vw, 26px);
+  align-self: end;
 }
 
 .team-role {
   font-family: var(--font-mono);
-  font-size: clamp(9px, 1vw, 10px);
+  font-size: clamp(8px, 0.9vw, 10px);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--text-dim);
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   line-height: 1.4;
 }
 
 .team-desc {
-  font-size: clamp(12px, 1.3vw, 13px);
+  font-size: clamp(12px, 1.2vw, 13px);
   color: var(--text-secondary);
   line-height: 1.8;
   font-weight: 300;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   letter-spacing: 0.2px;
+}
+
+.team-card-lead .team-desc {
+  grid-column: 2 / 3;
 }
 
 .team-links {
   display: flex;
   gap: 16px;
+  flex-wrap: wrap;
+}
+
+.team-card-lead .team-links {
+  grid-column: 2 / 3;
 }
 
 .team-links a {
   font-family: var(--font-mono);
-  font-size: clamp(10px, 1.1vw, 11px);
+  font-size: clamp(9px, 1vw, 11px);
   letter-spacing: 0.1em;
   color: var(--chrome-dim);
   text-decoration: none;
@@ -4186,24 +4493,25 @@ FILE: src\pages\Home.css
   margin: 0 auto;
   display: grid;
   grid-template-columns: auto 1fr auto;
-  grid-template-rows: auto auto;
-  gap: 32px 60px;
+  gap: clamp(20px, 3vw, 32px) clamp(32px, 5vw, 60px);
   align-items: start;
 }
 
+.footer-logo {
+  grid-row: 1 / 2;
+}
+
 .footer-logo img {
-  height: clamp(52px, 8vw, 64px);
-  opacity: 0.8;
-  grid-row: span 2;
+  height: clamp(48px, 7vw, 64px);
   width: auto;
+  opacity: 0.8;
 }
 
 .footer-text p {
-  font-size: clamp(13px, 1.4vw, 14px);
+  font-size: clamp(12px, 1.3vw, 14px);
   color: var(--text-secondary);
   line-height: 1.8;
   font-weight: 300;
-  letter-spacing: 0.2px;
 }
 
 .footer-dim {
@@ -4217,15 +4525,17 @@ FILE: src\pages\Home.css
 
 .footer-links {
   display: flex;
-  gap: 24px;
+  gap: clamp(12px, 2vw, 24px);
   align-items: center;
   flex-wrap: wrap;
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
 }
 
 .footer-links a,
 .footer-links button {
   font-family: var(--font-mono);
-  font-size: clamp(10px, 1.1vw, 11px);
+  font-size: clamp(9px, 1vw, 11px);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-dim);
@@ -4248,7 +4558,7 @@ FILE: src\pages\Home.css
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 24px;
+  padding-top: clamp(16px, 2vw, 24px);
   border-top: 1px solid var(--border);
   font-family: var(--font-mono);
   font-size: clamp(9px, 1vw, 11px);
@@ -4257,85 +4567,268 @@ FILE: src\pages\Home.css
   line-height: 1.4;
 }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 1024px) {
+/* ─────────────────────────────────────────
+   RESPONSIVE BREAKPOINTS
+───────────────────────────────────────── */
+
+/* Large tablets / small laptops */
+@media (max-width: 1100px) {
   .features-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .arch-flow {
-    flex-direction: column;
-    gap: 32px;
-  }
-  .arch-step {
-    border-left: none;
-    border-top: 1px solid var(--border);
-    padding: 24px 0 0;
-  }
-  .arch-step:first-child {
-    border-top: none;
-    padding-top: 0;
-  }
-  .arch-step-connector { display: none; }
+
   .repos-wrap {
     grid-template-columns: 1fr;
   }
-  .team-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .team-card-wrap.lead {
-    grid-column: span 3;
-  }
-  .footer-inner {
-    grid-template-columns: 1fr;
-  }
-  .footer-logo img {
-    grid-row: unset;
-  }
-}
 
-@media (max-width: 768px) {
-  .section {
-    padding: 80px 20px;
-  }
-  .hero {
-    padding: 0 20px;
-  }
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
   .team-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
+
   .team-card-wrap.lead {
     grid-column: span 2;
   }
-  .hero-stats {
-    flex-wrap: wrap;
-  }
-  .stat-div { display: none; }
-  .stat {
-    flex: 0 0 50%;
-    border-bottom: 1px solid var(--border);
-  }
-  .footer {
-    padding: 40px 20px;
-  }
-  .footer-bottom {
-    flex-direction: column;
-    gap: 8px;
-    text-align: center;
+
+  .team-card-lead {
+    grid-template-columns: auto 1fr;
   }
 }
 
-@media (max-width: 480px) {
+/* Tablets */
+@media (max-width: 900px) {
+  .arch-flow {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .arch-step {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    padding: clamp(18px, 3vw, 24px);
+  }
+
+  .arch-step:first-child {
+    border-top: none;
+  }
+
+  .arch-step-connector {
+    display: none;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .footer-logo {
+    grid-row: auto;
+  }
+
+  .footer-links {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
+/* Phones landscape / large phones */
+@media (max-width: 768px) {
+  .section {
+    padding: clamp(48px, 8vw, 80px) clamp(16px, 4vw, 24px);
+  }
+
+  .hero {
+    min-height: auto;
+    padding: clamp(80px, 14vw, 120px) clamp(16px, 4vw, 24px) clamp(50px, 8vw, 80px);
+  }
+
+  .hero-scroll-hint {
+    display: none;
+  }
+
+  .hero-stats {
+    max-width: 100%;
+  }
+
+  .stat-div {
+    display: none;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 360px;
+  }
+
+  .stat {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stat:nth-child(odd) {
+    border-right: 1px solid var(--border);
+  }
+
+  .stat:nth-last-child(-n+2) {
+    border-bottom: none;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+  }
+
+  .feature-card-wrap {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin-bottom: 1px;
+  }
+
   .team-grid {
     grid-template-columns: 1fr;
   }
+
   .team-card-wrap.lead {
     grid-column: span 1;
   }
+
+  .team-card-lead {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .team-card-lead .team-avatar {
+    width: 52px;
+    height: 52px;
+    align-self: flex-start;
+    margin-bottom: 14px;
+  }
+
+  .team-card-lead .team-name,
+  .team-card-lead .team-desc,
+  .team-card-lead .team-links {
+    grid-column: auto;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .footer-links {
+    gap: 12px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+
+  .logbook-callout {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
 }
 
+/* Small phones */
+@media (max-width: 480px) {
+  .section {
+    padding: clamp(40px, 6vw, 60px) clamp(12px, 3vw, 16px);
+  }
+
+  .hero {
+    padding: clamp(72px, 12vw, 90px) 12px clamp(40px, 6vw, 60px);
+  }
+
+  .hero-badge {
+    font-size: 9px;
+    padding: 6px 12px;
+    margin-bottom: 20px;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cta-primary,
+  .cta-secondary {
+    width: 100%;
+    max-width: 260px;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .hero-stats {
+    max-width: 300px;
+  }
+
+  .stat-num {
+    font-size: 22px;
+  }
+
+  .section-label {
+    font-size: 9px;
+    padding: 6px 12px;
+  }
+
+  .arch-step {
+    padding: 16px 14px;
+  }
+
+  .tech-pill {
+    font-size: 10px;
+    padding: 6px 10px;
+  }
+
+  .logbook-callout {
+    padding: 16px;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .logbook-icon {
+    font-size: 20px;
+  }
+
+  .footer {
+    padding: clamp(32px, 5vw, 48px) 12px;
+  }
+
+  .footer-links {
+    gap: 10px;
+    justify-content: flex-start;
+  }
+
+  .footer-logo img {
+    height: 44px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+  .hero-title {
+    font-size: 38px;
+  }
+
+  .hero-stats {
+    max-width: 260px;
+  }
+
+  .hero-cta {
+    gap: 8px;
+  }
+
+  .cta-primary,
+  .cta-secondary {
+    max-width: 220px;
+    font-size: 10px;
+    padding: 10px 16px;
+  }
+}
 
 
 
@@ -4387,37 +4880,37 @@ const FEATURES = [
   {
     icon: '◎',
     title: 'Voice Command Intelligence',
-    desc: 'Wake-word activated PCM audio streaming from ESP32 wristband to cloud. Google Speech Recognition transcribes, Gemini 2.0 Flash understands intent across 6 task domains.',
+    desc: 'Push-to-talk audio streaming from ESP32 device to cloud. 16kHz PCM captured via INMP441 I2S mic, transcribed with Google Speech Recognition, intent classified by Gemini 2.5 Flash across 6 task domains.',
     tag: 'Core'
   },
   {
     icon: '◈',
-    title: 'Agentic Task Execution',
-    desc: 'LangChain-powered multi-step reasoning chains handle finance tracking, schedule management, live web research via SerpAPI, and natural conversation with persistent memory.',
+    title: 'Autonomous AI Agents',
+    desc: 'LangGraph stateful agent graph with think → tool_call → execute → reflect loops. Multi-step web research via SerpAPI, self-correction, tool-call caps, and API key rotation on rate limits.',
     tag: 'AI'
   },
   {
     icon: '◉',
-    title: 'Object Detection Vision',
-    desc: 'Dedicated YOLOv3 microservice identifies 80 COCO-class objects from camera input. Optional Gemini narration layer describes scenes for visually impaired users.',
+    title: 'Object Detection & Scene Narration',
+    desc: 'Dedicated YOLOv3 microservice (Synchora-IDMB) detects 80 COCO-class objects from images. Gemini narration layer converts raw detections into natural spoken scene descriptions for accessibility.',
     tag: 'Vision'
   },
   {
     icon: '▣',
-    title: 'Cloud-Offloaded Architecture',
-    desc: 'All heavy inference runs server-side. The ESP32 wristband is purely a thin client — streaming audio in, receiving synthesized speech out via ElevenLabs TTS.',
-    tag: 'Infrastructure'
+    title: 'Finance & Schedule Automation',
+    desc: 'Voice-log transactions and query spending patterns. Add calendar events and check upcoming schedules — all persisted in MongoDB and retrieved via natural language, no UI required.',
+    tag: 'Productivity'
   },
   {
     icon: '◐',
-    title: 'Persistent Agentic Memory',
-    desc: 'Redis caching + MongoDB storage keep context across sessions. The assistant remembers user preferences, past tasks, and adapts responses over time.',
+    title: 'Persistent Memory & Context',
+    desc: 'Redis-backed session caching + MongoDB conversation history keep the assistant context-aware across sessions. It remembers what you said, what you asked, and adapts over time.',
     tag: 'Memory'
   },
   {
     icon: '◫',
-    title: 'Accessibility First Design',
-    desc: 'Built for people with special needs and visual impairments. Empathetic, patient AI persona with IST timezone awareness and positive-forward responses.',
+    title: 'Accessibility-First Design',
+    desc: 'Built for people with special needs and visual impairments. Hands-free, screen-free interaction. Cloud-offloaded compute keeps the device thin, low-power, and always responsive.',
     tag: 'Accessibility'
   }
 ]
@@ -4431,14 +4924,36 @@ const TECH_STACK = [
   { label: 'Express 5', category: 'Backend' },
   { label: 'LangChain JS', category: 'AI' },
   { label: 'LangGraph', category: 'AI' },
-  { label: 'Gemini 2.0 Flash', category: 'AI' },
+  { label: 'Gemini 2.5 Flash', category: 'AI' },
   { label: 'Python STT', category: 'AI' },
   { label: 'ElevenLabs TTS', category: 'AI' },
   { label: 'YOLOv3', category: 'Vision' },
   { label: 'OpenCV DNN', category: 'Vision' },
   { label: 'MongoDB', category: 'Data' },
   { label: 'Redis', category: 'Data' },
+  { label: 'SerpAPI', category: 'Search' },
   { label: 'Telegram Bot', category: 'Notify' },
+]
+
+const REPOS = [
+  {
+    name: 'Synchora-MS',
+    badge: 'Main Server',
+    desc: 'Node.js backend — WebSocket pipeline, LangChain agents, LangGraph research, MongoDB, Redis, TTS',
+    url: 'https://github.com/SonuuChowdhury/Synchora-MS'
+  },
+  {
+    name: 'Synchora-IDMB',
+    badge: 'Vision Service',
+    desc: 'Image detection microservice — YOLOv3 + OpenCV DNN, Gemini scene narration, REST API',
+    url: 'https://github.com/SonuuChowdhury/Synchora-IDMB'
+  },
+  {
+    name: 'Synchora-Device',
+    badge: 'ESP32 Firmware',
+    desc: 'PlatformIO C++ firmware — INMP441 I2S capture, PTT button, WebSocket audio streaming',
+    url: 'https://github.com/SonuuChowdhury/Synchora-Device-PlatformIO'
+  },
 ]
 
 function useIntersect(threshold = 0.15) {
@@ -4492,6 +5007,8 @@ export default function Home({ navigate }) {
 
         <div className={`hero-content ${heroReady ? 'ready' : ''}`}>
           <div className="hero-badge">
+            <span className="badge-dot" />
+            AI Agent · Wearable · Accessibility
           </div>
 
           <h1 className="hero-title">
@@ -4500,19 +5017,21 @@ export default function Home({ navigate }) {
           </h1>
 
           <p className="hero-sub">
-            Synchora is a cloud-powered AI assistant wristband designed for accessibility —
+            Synchora is a cloud-powered AI automation agent designed to connect with a wearable device —
             voice-activated, context-aware, and built to help those who need it most.
           </p>
 
           <div className="hero-cta">
             <button
               className="cta-primary"
+              style={{ padding: '14px 32px', fontSize: '13px', letterSpacing: '0.1em' }}
               onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Explore Features
             </button>
             <button
               className="cta-secondary"
+              style={{ padding: '14px 28px', fontSize: '13px', letterSpacing: '0.1em' }}
               onClick={() => navigate('documentation')}
             >
               Documentation →
@@ -4554,7 +5073,7 @@ export default function Home({ navigate }) {
           <div className="section-label">Capabilities</div>
           <h2 className="section-title">What Synchora Does</h2>
           <p className="section-sub">
-            Six intelligent task domains running on a cloud-native agentic pipeline.
+            Six intelligent task domains running on a cloud-native agentic pipeline, designed around voice-first accessibility.
           </p>
         </AnimSection>
 
@@ -4587,11 +5106,11 @@ export default function Home({ navigate }) {
 
         <AnimSection className="arch-flow">
           {[
-            { step: '01', label: 'Device', sub: 'ESP32 Wristband', detail: 'Button press triggers PCM audio capture via INMP441 I2S mic. WebSocket streams raw audio to cloud.' },
-            { step: '02', label: 'STT', sub: 'Speech Recognition', detail: 'Python process receives PCM buffer, runs Google Speech Recognition, returns transcribed text.' },
-            { step: '03', label: 'Intent', sub: 'Gemini Detection', detail: 'Lightweight Gemini model classifies intent into one of 6 task categories in milliseconds.' },
-            { step: '04', label: 'Agent', sub: 'LangChain Pipeline', detail: 'Task-specific chain executes — querying MongoDB, calling SerpAPI, or running LangGraph research agent.' },
-            { step: '05', label: 'TTS', sub: 'ElevenLabs Voice', detail: 'Response text converted to natural speech. Raw PCM audio streamed back to device over WebSocket.' },
+            { step: '01', label: 'Device', sub: 'ESP32 + INMP441', detail: 'PTT button triggers PCM audio capture at 16kHz via I2S mic. Binary frames stream over WebSocket to the cloud server with device token auth.' },
+            { step: '02', label: 'STT', sub: 'Speech Recognition', detail: 'Node.js spawns a Python child process. PCM buffer piped via stdin. Google Speech Recognition returns transcribed text as JSON.' },
+            { step: '03', label: 'Intent', sub: 'Gemini Detection', detail: 'Lightweight Gemini model classifies intent into one of 6 task categories — chat, finance, schedule, or research — in milliseconds.' },
+            { step: '04', label: 'Agent', sub: 'LangChain / LangGraph', detail: 'Task-specific chain fires — querying MongoDB, calling SerpAPI, or running the full stateful LangGraph autonomous research agent.' },
+            { step: '05', label: 'TTS', sub: 'ElevenLabs Voice', detail: 'Response text synthesized to natural speech via ElevenLabs. Raw PCM audio streamed back to device over WebSocket. TTS_END signals completion.' },
           ].map((s, i) => (
             <div key={i} className="arch-step">
               <div className="arch-step-num">{s.step}</div>
@@ -4617,13 +5136,9 @@ export default function Home({ navigate }) {
           </div>
         </AnimSection>
 
-        {/* Repo links */}
+        {/* Repo cards */}
         <AnimSection className="repos-wrap" delay={300}>
-          {[
-            { name: 'Synchora-MS', desc: 'Main backend server — Node.js, LangChain, WebSocket, MongoDB, Redis', url: 'https://github.com/SonuuChowdhury/Synchora-MS' },
-            { name: 'Synchora-IDMB', desc: 'Image detection microservice — YOLOv3, OpenCV, Gemini narration', url: 'https://github.com/SonuuChowdhury/Synchora-IDMB' },
-            { name: 'Synchora-Device', desc: 'ESP32 PlatformIO firmware — I2S audio, WebSocket client', url: 'https://github.com/SonuuChowdhury/Synchora-Device-PlatformIO' },
-          ].map((r, i) => (
+          {REPOS.map((r, i) => (
             <a key={i} href={r.url} target="_blank" rel="noopener noreferrer" className="repo-card">
               <div className="repo-card-inner">
                 <div className="repo-icon">
@@ -4632,6 +5147,7 @@ export default function Home({ navigate }) {
                   </svg>
                 </div>
                 <div className="repo-info">
+                  <div className="repo-badge-inline">{r.badge}</div>
                   <div className="repo-name">{r.name}</div>
                   <div className="repo-desc">{r.desc}</div>
                 </div>
@@ -4639,6 +5155,23 @@ export default function Home({ navigate }) {
               </div>
             </a>
           ))}
+        </AnimSection>
+
+        {/* Build logbook callout */}
+        <AnimSection delay={400}>
+          <a
+            href="https://docs.google.com/document/d/18II7gRaO29cJ0GnAKNLhQsrgbbmvOMZdw-WH79EImz4/edit?usp=drive_link"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="logbook-callout"
+          >
+            <div className="logbook-icon">📓</div>
+            <div className="logbook-body">
+              <div className="logbook-title">Build Logbook</div>
+              <div className="logbook-desc">Full development journal — every debug session, architecture decision, hardware issue, and breakthrough documented in real time.</div>
+            </div>
+            <div className="logbook-arrow">↗</div>
+          </a>
         </AnimSection>
       </section>
 
@@ -4687,6 +5220,14 @@ export default function Home({ navigate }) {
           <div className="footer-links">
             <a href="https://github.com/SonuuChowdhury/Synchora-MS" target="_blank" rel="noopener noreferrer">Main Repo</a>
             <a href="https://github.com/SonuuChowdhury/Synchora-IDMB" target="_blank" rel="noopener noreferrer">Vision Repo</a>
+            <a href="https://github.com/SonuuChowdhury/Synchora-Device-PlatformIO" target="_blank" rel="noopener noreferrer">Device Repo</a>
+            <a
+              href="https://docs.google.com/document/d/18II7gRaO29cJ0GnAKNLhQsrgbbmvOMZdw-WH79EImz4/edit?usp=drive_link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Logbook
+            </a>
             <a href="mailto:chowdhurysonu047@gmail.com">Contact</a>
             <button onClick={() => navigate('documentation')}>Docs</button>
           </div>
@@ -4699,6 +5240,5 @@ export default function Home({ navigate }) {
     </div>
   )
 }
-
 
 
