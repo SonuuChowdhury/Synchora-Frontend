@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Synchora</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --border: #1e1e2e;
+      --accent: #7c3aed;
+      --accent-glow: rgba(124, 58, 237, 0.35);
+      --accent-dim: #4c1d95;
+      --green: #10b981;
+      --green-glow: rgba(16, 185, 129, 0.3);
+      --red: #ef4444;
+      --red-glow: rgba(239, 68, 68, 0.35);
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --mono: 'Space Mono', monospace;
+      --sans: 'Syne', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 0 60px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 400px;
+      background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── HEADER ── */
+    header {
+      width: 100%;
+      padding: 28px 40px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+      background: rgba(10, 10, 15, 0.7);
+    }
+
+    .logo-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--accent), #a855f7);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    header h1 {
+      font-family: var(--sans);
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    header h1 span {
+      color: var(--accent);
+    }
+
+    .header-badge {
+      margin-left: auto;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── MAIN CARD ── */
+    .card {
+      position: relative;
+      z-index: 10;
+      margin-top: 60px;
+      width: min(560px, calc(100% - 40px));
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 0 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.03);
+    }
+
+    .card-title {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    /* ── STATUS ROW ── */
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+      padding: 14px 18px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--muted);
+      transition: background 0.3s, box-shadow 0.3s;
+      flex-shrink: 0;
+    }
+
+    .status-dot.connecting { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; animation: pulse 1s infinite; }
+    .status-dot.connected  { background: var(--green); box-shadow: 0 0 8px var(--green); }
+    .status-dot.disconnected { background: var(--muted); }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .status-label {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .status-value {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--text);
+      margin-left: auto;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── BUTTONS ── */
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      padding: 12px 22px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .btn-connect {
+      background: linear-gradient(135deg, var(--accent-dim), var(--accent));
+      color: #fff;
+      border-color: var(--accent);
+      flex: 1;
+      box-shadow: 0 0 24px var(--accent-glow);
+    }
+
+    .btn-connect:hover {
+      box-shadow: 0 0 36px var(--accent-glow);
+      transform: translateY(-1px);
+    }
+
+    .btn-connect.connected {
+      background: rgba(16,185,129,0.12);
+      border-color: var(--green);
+      color: var(--green);
+      box-shadow: 0 0 20px var(--green-glow);
+    }
+
+    .btn-connect:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Push-to-talk button */
+    .btn-ptt {
+      background: rgba(16,185,129,0.1);
+      border-color: var(--green);
+      color: var(--green);
+      flex: 1.4;
+      box-shadow: 0 0 16px var(--green-glow);
+    }
+
+    .btn-ptt:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .btn-ptt:not(:disabled):hover {
+      background: rgba(16,185,129,0.18);
+      box-shadow: 0 0 28px var(--green-glow);
+    }
+
+    .btn-ptt.recording {
+      background: rgba(239,68,68,0.15);
+      border-color: var(--red);
+      color: var(--red);
+      box-shadow: 0 0 28px var(--red-glow);
+      animation: recording-pulse 1.2s ease-in-out infinite;
+    }
+
+    @keyframes recording-pulse {
+      0%, 100% { box-shadow: 0 0 20px var(--red-glow); }
+      50% { box-shadow: 0 0 40px rgba(239,68,68,0.55); }
+    }
+
+    /* Mic icon */
+    .mic-icon { margin-right: 8px; font-size: 1rem; }
+
+    /* ── WAVEFORM ── */
+    .waveform-wrap {
+      height: 56px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 32px;
+      background: rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    canvas#waveform {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .waveform-idle {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      position: absolute;
+    }
+
+    /* ── LOG ── */
+    .log-header {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .log-clear {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      cursor: pointer;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 4px;
+      transition: color 0.2s;
+    }
+    .log-clear:hover { color: var(--text); }
+
+    .log-box {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      min-height: 120px;
+      max-height: 260px;
+      overflow-y: auto;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      line-height: 1.8;
+      color: var(--text);
+      scroll-behavior: smooth;
+    }
+
+    .log-box::-webkit-scrollbar { width: 4px; }
+    .log-box::-webkit-scrollbar-track { background: transparent; }
+    .log-box::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    .log-entry {
+      display: flex;
+      gap: 10px;
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .log-entry:last-child { border-bottom: none; }
+
+    .log-arrow { color: var(--accent); flex-shrink: 0; }
+
+    .log-empty {
+      color: var(--muted);
+      font-size: 0.72rem;
+      text-align: center;
+      padding: 24px 0;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── USER ID FIELD ── */
+    .user-id-row {
+      margin-bottom: 28px;
+    }
+
+    .field-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .field-input {
+      width: 100%;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 16px;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .field-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    /* ── WS URL FIELD ── */
+    .ws-row { margin-bottom: 28px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-icon">🎙</div>
+    <h1>Test <span>Synchora</span></h1>
+    <span class="header-badge">Dev / Debug</span>
+  </header>
+
+  <div class="card">
+    <div class="card-title">WebSocket · Push-to-Talk STT</div>
+
+    <!-- WS URL -->
+    <div class="ws-row">
+      <div class="field-label">WebSocket URL</div>
+      <input class="field-input" id="wsUrl" type="text" value="ws://localhost:5000" />
+    </div>
+
+    <!-- User ID -->
+    <div class="user-id-row">
+      <div class="field-label">User ID</div>
+      <input class="field-input" id="userId" type="text" value="" />
+    </div>
+
+    <!-- Status -->
+    <div class="status-row">
+      <div class="status-dot disconnected" id="statusDot"></div>
+      <span class="status-label">Connection</span>
+      <span class="status-value" id="statusText">DISCONNECTED</span>
+    </div>
+
+    <!-- Buttons -->
+    <div class="btn-row">
+      <button class="btn btn-connect" id="btnConnect" onclick="toggleConnect()">Connect</button>
+      <button class="btn btn-ptt" id="btnPTT" disabled
+        onmousedown="startRecording()" onmouseup="stopRecording()"
+        ontouchstart="startRecording()" ontouchend="stopRecording()">
+        <span class="mic-icon">🎤</span>Hold to Speak
+      </button>
+    </div>
+
+    <!-- Waveform -->
+    <div class="waveform-wrap">
+      <span class="waveform-idle" id="waveformIdle">— idle —</span>
+      <canvas id="waveform"></canvas>
+    </div>
+
+    <!-- Log -->
+    <div class="log-header">
+      <span>Transcript Log</span>
+      <button class="log-clear" onclick="clearLog()">Clear</button>
+    </div>
+    <div class="log-box" id="logBox">
+      <div class="log-empty" id="logEmpty">No messages yet…</div>
+    </div>
+  </div>
+
+  <script>
+    let ws = null;
+    let audioCtx = null;
+    let processor = null;
+    let stream = null;
+    let animFrame = null;
+    let analyser = null;
+    let recording = false;
+    let status = 'disconnected';
+
+    const $ = id => document.getElementById(id);
+
+    // ── STATUS ──
+    function setStatus(s) {
+      status = s;
+      const dot = $('statusDot');
+      const txt = $('statusText');
+      dot.className = 'status-dot ' + s;
+      txt.textContent = s.toUpperCase();
+
+      const btn = $('btnConnect');
+      if (s === 'connected') {
+        btn.textContent = '✓ Connected';
+        btn.classList.add('connected');
+        $('btnPTT').disabled = false;
+      } else if (s === 'connecting') {
+        btn.textContent = 'Connecting…';
+        btn.classList.remove('connected');
+        btn.disabled = true;
+        $('btnPTT').disabled = true;
+      } else {
+        btn.textContent = 'Connect';
+        btn.classList.remove('connected');
+        btn.disabled = false;
+        $('btnPTT').disabled = true;
+      }
+    }
+
+    // ── LOG ──
+    function addLog(msg) {
+      const box = $('logBox');
+      const empty = $('logEmpty');
+      if (empty) empty.remove();
+
+      const entry = document.createElement('div');
+      entry.className = 'log-entry';
+      entry.innerHTML = `<span class="log-arrow">▶</span><span>${escapeHtml(msg)}</span>`;
+      box.appendChild(entry);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function clearLog() {
+      const box = $('logBox');
+      box.innerHTML = '<div class="log-empty" id="logEmpty">No messages yet…</div>';
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    // ── CONNECT ──
+    function toggleConnect() {
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.close();
+        return;
+      }
+      const url = $('wsUrl').value.trim() || 'ws://localhost:5000';
+      const userId = $('userId').value.trim();
+
+      ws = new WebSocket(url);
+      ws.binaryType = 'arraybuffer';
+      setStatus('connecting');
+
+      ws.onopen = () => {
+        setStatus('connected');
+        ws.send(JSON.stringify({ event: 'TOKEN', user_id: userId }));
+        addLog('[connected — token sent]');
+      };
+
+      ws.onclose = () => {
+        setStatus('disconnected');
+        addLog('[disconnected]');
+        stopRecording(true);
+      };
+
+      ws.onerror = () => {
+        addLog('[connection error]');
+      };
+
+      ws.onmessage = e => addLog(e.data);
+    }
+
+    // ── DOWNSAMPLE ──
+    function downsample(buffer, sampleRate, outRate = 16000) {
+      if (sampleRate === outRate) return buffer;
+      const ratio = sampleRate / outRate;
+      const length = Math.round(buffer.length / ratio);
+      const result = new Float32Array(length);
+      let offset = 0;
+      for (let i = 0; i < length; i++) {
+        result[i] = buffer[Math.floor(offset)];
+        offset += ratio;
+      }
+      return result;
+    }
+
+    // ── RECORDING ──
+    async function startRecording() {
+      if (ws?.readyState !== 1 || recording) return;
+      recording = true;
+
+      ws.send(JSON.stringify({ event: 'START' }));
+
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      } catch (err) {
+        addLog('[mic error: ' + err.message + ']');
+        recording = false;
+        return;
+      }
+
+      audioCtx = new AudioContext();
+      const src = audioCtx.createMediaStreamSource(stream);
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 256;
+      processor = audioCtx.createScriptProcessor(2048, 1, 1);
+
+      src.connect(analyser);
+      src.connect(processor);
+      processor.connect(audioCtx.destination);
+
+      processor.onaudioprocess = e => {
+        if (!recording) return;
+        let input = e.inputBuffer.getChannelData(0);
+        input = downsample(input, audioCtx.sampleRate);
+        const pcm = new Int16Array(input.length);
+        for (let i = 0; i < input.length; i++) {
+          pcm[i] = Math.max(-1, Math.min(1, input[i])) * 0x7fff;
+        }
+        if (ws?.readyState === 1) ws.send(pcm.buffer);
+      };
+
+      // Waveform
+      $('waveformIdle').style.display = 'none';
+      drawWaveform();
+
+      const btn = $('btnPTT');
+      btn.classList.add('recording');
+      btn.innerHTML = '<span class="mic-icon">🔴</span>Listening…';
+    }
+
+    function stopRecording(force = false) {
+      if (!recording && !force) return;
+      recording = false;
+
+      if (ws?.readyState === 1) ws.send(JSON.stringify({ event: 'END' }));
+
+      stream?.getTracks().forEach(t => t.stop());
+      processor?.disconnect();
+      audioCtx?.close();
+
+      stream = null; processor = null; audioCtx = null; analyser = null;
+
+      cancelAnimationFrame(animFrame);
+      const canvas = $('waveform');
+      const ctx2 = canvas.getContext('2d');
+      ctx2.clearRect(0, 0, canvas.width, canvas.height);
+      $('waveformIdle').style.display = '';
+
+      const btn = $('btnPTT');
+      btn.classList.remove('recording');
+      btn.innerHTML = '<span class="mic-icon">🎤</span>Hold to Speak';
+    }
+
+    // ── WAVEFORM ──
+    function drawWaveform() {
+      const canvas = $('waveform');
+      canvas.width = canvas.offsetWidth * devicePixelRatio;
+      canvas.height = canvas.offsetHeight * devicePixelRatio;
+      const ctx2 = canvas.getContext('2d');
+
+      const buf = new Uint8Array(analyser.frequencyBinCount);
+
+      const draw = () => {
+        if (!recording) return;
+        animFrame = requestAnimationFrame(draw);
+        analyser.getByteTimeDomainData(buf);
+
+        ctx2.clearRect(0, 0, canvas.width, canvas.height);
+        ctx2.beginPath();
+        ctx2.strokeStyle = '#ef4444';
+        ctx2.lineWidth = 2 * devicePixelRatio;
+        ctx2.shadowColor = '#ef4444';
+        ctx2.shadowBlur = 6;
+
+        const sliceWidth = canvas.width / buf.length;
+        let x = 0;
+        for (let i = 0; i < buf.length; i++) {
+          const v = buf[i] / 128.0;
+          const y = (v * canvas.height) / 2;
+          i === 0 ? ctx2.moveTo(x, y) : ctx2.lineTo(x, y);
+          x += sliceWidth;
+        }
+        ctx2.stroke();
+      };
+
+      draw();
+    }
+
+    // Prevent PTT from staying active on mobile touchcancel
+    $('btnPTT').addEventListener('touchcancel', () => stopRecording());
+  </script>
+
+</body>
+</html>

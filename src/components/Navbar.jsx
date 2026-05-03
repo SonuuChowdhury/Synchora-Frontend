@@ -33,6 +33,7 @@ export default function Navbar({ navigate, currentPage }) {
     navigate(page)
   }
 
+
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} role="navigation">
       <div className="nav-inner">
@@ -44,6 +45,12 @@ export default function Navbar({ navigate, currentPage }) {
 
         {/* Desktop + Mobile links */}
         <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
+          <button
+  className="nav-link-btn"
+  onClick={() => window.location.href = "/try.html"}
+>
+  Try Synchora
+</button>
           <button className="nav-link-btn" onClick={() => scrollTo('features')}>Features</button>
           <button className="nav-link-btn" onClick={() => scrollTo('architecture')}>Architecture</button>
           <button className="nav-link-btn" onClick={() => scrollTo('team')}>Team</button>
